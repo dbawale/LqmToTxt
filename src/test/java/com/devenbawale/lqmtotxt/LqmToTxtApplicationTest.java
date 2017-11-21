@@ -25,4 +25,17 @@ public class LqmToTxtApplicationTest {
 
 
     }
+
+    @Test
+    public void testLongToString() throws Exception {
+        //Setup the fixture
+        LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+
+        //Execute the SUT
+        String result = lqmToTxtApplication.longToString(2L);
+
+        //Validation
+        assertThat(result, is(not(nullValue())));
+        assertThat(result, is(equalTo("2")));
+    }
 }

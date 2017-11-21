@@ -9,4 +9,8 @@ public class LqmToTxtApplication {
     public String integerToString(int integer) {
         return String.valueOf(integer);
     }
+
+    public String longToString(long l) {
+        return String.valueOf(l);
+    }
 }
