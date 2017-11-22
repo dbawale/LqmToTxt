@@ -16,6 +16,8 @@ public class LqmToTxtApplicationTest {
 
     private PrintStream console;
 
+    private final String EOL = System.getProperty("line.separator");
+
     @Before
     public void saveConsole() {
         this.console = System.out;
@@ -33,7 +35,7 @@ public class LqmToTxtApplicationTest {
         lqmToTxtApplication.main(args);
 
         //Validation
-        assertThat(bytes.toString(), is(equalTo("Test\r\n")));
+        assertThat(bytes.toString(), is(equalTo(String.format("Test%s", EOL))));
     }
 
     @Test
@@ -48,7 +50,7 @@ public class LqmToTxtApplicationTest {
         lqmToTxtApplication.main(args);
 
         //Validation
-        assertThat(bytes.toString(), is(equalTo("Too few arguments\n. Usage: lqmtotxtapplication <filename.lqm>\r\n")));
+        assertThat(bytes.toString(), is(equalTo(String.format("Too few arguments\n. Usage: lqmtotxtapplication <filename.lqm>%s", EOL))));
     }
 
     @After
