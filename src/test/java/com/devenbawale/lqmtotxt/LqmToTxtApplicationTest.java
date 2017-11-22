@@ -1,41 +1,47 @@
 package com.devenbawale.lqmtotxt;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNot.not;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.spy;
 
 public class LqmToTxtApplicationTest {
 
-    @Test
-    public void testIntegerToString() throws Exception {
-        //Setup the fixture
-        LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+    private PrintStream console;
 
-        //Execute the SUT
-        String result = lqmToTxtApplication.integerToString(2);
-
-        //Validation
-        assertThat(result, is(not(nullValue())));
-        assertThat(result, is(equalTo("2")));
-
-
+    @Before
+    public void saveConsole() {
+        this.console = System.out;
     }
 
     @Test
-    public void testLongToString() throws Exception {
+    public void testMain() throws Exception {
         //Setup the fixture
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+        System.setOut(new PrintStream(bytes));
+        String[] args = new String[1];
 
         //Execute the SUT
-        String result = lqmToTxtApplication.longToString(2L);
+        lqmToTxtApplication.main(args);
 
-        //Validation
-        assertThat(result, is(not(nullValue())));
-        assertThat(result, is(equalTo("2")));
+        //Assert
+        assertEquals("Test\r\n", bytes.toString());
+
+    }
+
+    @After
+    public void restoreConsole() {
+        System.setOut(console);
     }
 }
