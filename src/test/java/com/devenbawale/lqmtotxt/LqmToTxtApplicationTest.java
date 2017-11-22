@@ -9,10 +9,7 @@ import java.io.PrintStream;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsNot.not;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.spy;
 
 public class LqmToTxtApplicationTest {
@@ -35,9 +32,23 @@ public class LqmToTxtApplicationTest {
         //Execute the SUT
         lqmToTxtApplication.main(args);
 
-        //Assert
-        assertEquals("Test\r\n", bytes.toString());
+        //Validation
+        assertThat(bytes.toString(), is(equalTo("Test\r\n")));
+    }
 
+    @Test
+    public void testMain_tooFewArguments() throws Exception {
+        //Setup the fixture
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+        System.setOut(new PrintStream(bytes));
+        String[] args = new String[0];
+
+        //Execute the SUT
+        lqmToTxtApplication.main(args);
+
+        //Validation
+        assertThat(bytes.toString(), is(equalTo("Too few arguments\n. Usage: lqmtotxtapplication <filename.lqm>\r\n")));
     }
 
     @After
