@@ -50,7 +50,22 @@ public class LqmToTxtApplicationTest {
         lqmToTxtApplication.main(args);
 
         //Validation
-        assertThat(bytes.toString(), is(equalTo(String.format("Too few arguments\n. Usage: lqmtotxtapplication <filename.lqm>%s", EOL))));
+        assertThat(bytes.toString(), is(equalTo(String.format("Incorrect number of arguments\n. Usage: lqmtotxtapplication <filename.lqm>%s", EOL))));
+    }
+
+    @Test
+    public void testMain_tooManyArguments() throws Exception {
+        //Setup the fixture
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+        System.setOut(new PrintStream(bytes));
+        String[] args = new String[2];
+
+        //Execute the SUT
+        lqmToTxtApplication.main(args);
+
+        //Validation
+        assertThat(bytes.toString(), is(equalTo(String.format("Incorrect number of arguments\n. Usage: lqmtotxtapplication <filename.lqm>%s", EOL))));
     }
 
     @After

@@ -4,8 +4,8 @@ public class LqmToTxtApplication {
 
     public static void main(String[] args) {
 
-        if (args.length < 1) {
-            System.out.println("Too few arguments\n. Usage: lqmtotxtapplication <filename.lqm>");
+        if (args.length != 1) {
+            System.out.println("Incorrect number of arguments\n. Usage: lqmtotxtapplication <filename.lqm>");
             return;
         }
 
