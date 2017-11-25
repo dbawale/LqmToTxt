@@ -30,6 +30,7 @@ public class LqmToTxtApplicationTest {
         LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
         System.setOut(new PrintStream(bytes));
         String[] args = new String[1];
+        args[0] = "filename.lqm";
 
         //Execute the SUT
         lqmToTxtApplication.main(args);
@@ -66,6 +67,22 @@ public class LqmToTxtApplicationTest {
 
         //Validation
         assertThat(bytes.toString(), is(equalTo(String.format("Incorrect number of arguments\n. Usage: lqmtotxtapplication <filename.lqm>%s", EOL))));
+    }
+
+    @Test
+    public void testMain_incorrectFileExtension() throws Exception {
+        //Setup the fixture
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+        System.setOut(new PrintStream(bytes));
+        String[] args = new String[1];
+        args[0] = "filename.txt";
+
+        //Execute the SUT
+        lqmToTxtApplication.main(args);
+
+        //Validation
+        assertThat(bytes.toString(), is(equalTo(String.format("Incorrect file extension. The application can only read .lqm files%s", EOL))));
     }
 
     @After
