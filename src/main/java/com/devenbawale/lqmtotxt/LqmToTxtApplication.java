@@ -9,7 +9,12 @@ public class LqmToTxtApplication {
             return;
         }
 
-        if(!args[0].split("\\.")[1].equals("lqm")) {
+        if (args[0].split("\\.").length < 2) {
+            System.out.println("No file extension provided. The application can only read .lqm files");
+            return;
+        }
+
+        if (!args[0].split("\\.")[1].equals("lqm")) {
             System.out.println("Incorrect file extension. The application can only read .lqm files");
             return;
         }

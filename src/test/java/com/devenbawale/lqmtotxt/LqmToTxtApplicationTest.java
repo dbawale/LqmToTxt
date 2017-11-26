@@ -85,6 +85,23 @@ public class LqmToTxtApplicationTest {
         assertThat(bytes.toString(), is(equalTo(String.format("Incorrect file extension. The application can only read .lqm files%s", EOL))));
     }
 
+    @Test
+    public void testMain_fileWithNoExtension() {
+        //Setup the fixture
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        LqmToTxtApplication lqmToTxtApplication = spy(new LqmToTxtApplication());
+        System.setOut(new PrintStream(bytes));
+        String[] args = new String[1];
+        args[0] = "filename";
+
+        //Execute the SUT
+        lqmToTxtApplication.main(args);
+
+
+        //Validation
+        assertThat(bytes.toString(), is(equalTo(String.format("No file extension provided. The application can only read .lqm files%s", EOL))));
+    }
+
     @After
     public void restoreConsole() {
         System.setOut(console);
